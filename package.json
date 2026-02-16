@@ -1,0 +1,11 @@
+{
+  "name": "miyaken1201-github-io",
+  "private": true,
+  "scripts": {
+    "cv:pdf": "md-to-pdf ja/cv.md --config-file scripts/md-to-pdf.config.js && node -e \"const fs=require('fs'); fs.mkdirSync('assets/cv',{recursive:true}); const from='ja/cv.pdf', to='assets/cv/cv-ja.pdf'; if(fs.existsSync(to)) fs.unlinkSync(to); fs.renameSync(from,to);\" && md-to-pdf en/cv.md --config-file scripts/md-to-pdf.config.js && node -e \"const fs=require('fs'); fs.mkdirSync('assets/cv',{recursive:true}); const from='en/cv.pdf', to='assets/cv/cv-en.pdf'; if(fs.existsSync(to)) fs.unlinkSync(to); fs.renameSync(from,to);\"",
+    "post:new": "ruby scripts/new_post.rb"
+  },
+  "devDependencies": {
+    "md-to-pdf": "^5.2.4"
+  }
+}
