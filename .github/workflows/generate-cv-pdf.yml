@@ -1,0 +1,46 @@
+name: Generate CV PDFs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ja/cv.md
+      - en/cv.md
+      - assets/css/cv-pdf.css
+      - scripts/md-to-pdf.config.js
+      - package.json
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate PDFs
+        run: npm run cv:pdf
+
+      - name: Commit generated PDFs
+        run: |
+          if [ -n "$(git status --porcelain assets/cv/cv-ja.pdf assets/cv/cv-en.pdf)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/cv/cv-ja.pdf assets/cv/cv-en.pdf
+            git commit -m "chore: regenerate CV PDFs"
+            git push
+          else
+            echo "No PDF changes detected"
+          fi

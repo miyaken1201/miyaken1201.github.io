@@ -1,0 +1,11 @@
+main:
+  - title: "日本語"
+    url: /ja/
+  - title: "English"
+    url: /en/
+  - title: "CV (JA)"
+    url: /ja/cv/
+  - title: "CV (EN)"
+    url: /en/cv/
+  - title: "Blog"
+    url: /ja/blog/
