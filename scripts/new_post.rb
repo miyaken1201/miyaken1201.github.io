@@ -58,6 +58,8 @@ path = File.join("_posts", filename)
 permalink = "/#{options[:lang]}/blog/#{slug}/"
 category = options[:lang]
 body = options[:lang] == "ja" ? "ここに本文を記載します。" : "Write your content here."
+default_tags = options[:lang] == "ja" ? "[お知らせ]" : "[announcement]"
+sidebar_nav = options[:lang] == "ja" ? "nav_ja" : "nav_en"
 safe_title = options[:title].gsub('"', '\\"')
 
 if File.exist?(path)
@@ -71,6 +73,9 @@ content = <<~MARKDOWN
   date: #{timestamp}
   lang: #{options[:lang]}
   categories: [blog, #{category}]
+  tags: #{default_tags}
+  sidebar:
+    nav: "#{sidebar_nav}"
   permalink: #{permalink}
   ---
 

@@ -1,5 +1,8 @@
 module.exports = {
-  stylesheet: ["assets/css/cv-pdf.css"],
+  stylesheet: [
+    "assets/css/cv-pdf.css",
+    "assets/css/pdf-only.css"
+  ],
   pdf_options: {
     format: "A4",
     margin: {

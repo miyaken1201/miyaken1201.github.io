@@ -3,9 +3,19 @@ main:
     url: /ja/
   - title: "English"
     url: /en/
-  - title: "CV (JA)"
+
+nav_ja:
+  - title: "ホーム"
+    url: /ja/
+  - title: "履歴書"
     url: /ja/cv/
-  - title: "CV (EN)"
+  - title: "ブログ"
+    url: /ja/blog/
+
+nav_en:
+  - title: "Home"
+    url: /en/
+  - title: "CV"
     url: /en/cv/
   - title: "Blog"
-    url: /ja/blog/
+    url: /en/blog/

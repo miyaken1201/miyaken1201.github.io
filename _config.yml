@@ -13,6 +13,7 @@ plugins:
 
 markdown: kramdown
 permalink: /:categories/:title/
+post_pagination: true
 
 defaults:
   - scope:
@@ -24,6 +25,8 @@ defaults:
       read_time: true
       share: false
       related: false
+      sidebar:
+        nav: "nav_ja"
 
 include:
   - _pages
