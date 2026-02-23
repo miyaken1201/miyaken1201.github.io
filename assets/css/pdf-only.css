@@ -1,0 +1,6 @@
+.pdf-hide,
+.toc,
+.sidebar,
+.sidebar__right {
+  display: none !important;
+}

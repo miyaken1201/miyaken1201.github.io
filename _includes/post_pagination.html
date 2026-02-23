@@ -1,0 +1,72 @@
+{% if page.collection == "posts" and page.lang %}
+  {% assign posts_in_lang = site.posts | where: "lang", page.lang %}
+  {% assign current_index = nil %}
+
+  {% for post in posts_in_lang %}
+    {% if post.url == page.url %}
+      {% assign current_index = forloop.index0 %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign previous_post = nil %}
+  {% assign next_post = nil %}
+  {% assign latest_post = posts_in_lang[0] %}
+
+  {% if current_index != nil %}
+    {% if current_index > 0 %}
+      {% assign next_index = current_index | minus: 1 %}
+      {% assign next_post = posts_in_lang[next_index] %}
+    {% endif %}
+
+    {% assign last_index = posts_in_lang.size | minus: 1 %}
+    {% if current_index < last_index %}
+      {% assign previous_index = current_index | plus: 1 %}
+      {% assign previous_post = posts_in_lang[previous_index] %}
+    {% endif %}
+  {% endif %}
+
+  {% if page.lang == "ja" %}
+    {% assign previous_label = "前へ" %}
+    {% assign next_label = "次へ" %}
+    {% assign newer_label = "最新記事へ" %}
+    {% assign back_label = "記事一覧に戻る" %}
+    {% assign blog_list_url = "/ja/blog/" %}
+  {% else %}
+    {% assign previous_label = "Previous" %}
+    {% assign next_label = "Next" %}
+    {% assign newer_label = " To latest post" %}
+    {% assign back_label = "Back to blog list" %}
+    {% assign blog_list_url = "/en/blog/" %}
+  {% endif %}
+
+  {% if page.tags and page.tags.size > 0 %}
+    <div class="post-tag-list">
+      <span class="post-tag-list-label">{% if page.lang == "ja" %}タグ:{% else %}Tags:{% endif %}</span>
+      {% for tag in page.tags %}
+        <a href="{{ blog_list_url | relative_url }}?tag={{ tag | downcase | url_encode }}" class="post-tag-link">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <nav class="pagination">
+    {% if previous_post %}
+      <a href="{{ previous_post.url | relative_url }}" class="pagination--pager" title="{{ previous_post.title | escape }}">{{ previous_label }}</a>
+    {% else %}
+      <a href="#" class="pagination--pager disabled">{{ previous_label }}</a>
+    {% endif %}
+
+    {% if next_post %}
+      <a href="{{ next_post.url | relative_url }}" class="pagination--pager" title="{{ next_post.title | escape }}">{{ next_label }}</a>
+    {% else %}
+      <a href="#" class="pagination--pager disabled">{{ next_label }}</a>
+    {% endif %}
+  </nav>
+
+  <div class="post-pagination-actions">
+    {% if latest_post %}
+      <a href="{{ latest_post.url | relative_url }}" class="btn post-pagination-newer">{{ newer_label }}</a>
+    {% endif %}
+    <a href="{{ blog_list_url | relative_url }}" class="btn btn--primary post-pagination-back">{{ back_label }}</a>
+  </div>
+{% endif %}

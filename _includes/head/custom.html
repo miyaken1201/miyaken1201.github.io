@@ -1,1 +1,328 @@
-<link rel="stylesheet" href="/assets/css/custom.css">
+<link rel="stylesheet" href="/assets/css/custom.css" />
+<style>
+  /* 既存の言語リンクは後でJSで非表示化 */
+  #site-nav .visible-links a[href*="/ja"],
+  #site-nav .visible-links a[href*="/en"],
+  #site-nav .hidden-links a[href*="/ja"],
+  #site-nav .hidden-links a[href*="/en"] {
+    font-weight: 700;
+  }
+
+  /* 言語スイッチ全体 */
+  #site-nav .lang-switch-wrap {
+    margin-left: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* 「言語 / Language」見出し */
+  #site-nav .lang-switch-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    opacity: 0.9;
+    white-space: nowrap;
+  }
+
+  /* スイッチ本体 */
+  #site-nav .lang-switch {
+    position: relative;
+    --thumb-x: 2px;
+    --thumb-w: 0px;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+    border-radius: 999px;
+    background: rgba(127, 127, 127, 0.2);
+    border: 1px solid rgba(127, 127, 127, 0.25);
+    gap: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+  }
+
+  #site-nav .lang-switch .lang-switch-thumb-bg {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: var(--thumb-w);
+    height: calc(100% - 4px);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+    transition: transform 0.22s ease, width 0.22s ease;
+    transform: translateX(var(--thumb-x));
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  #site-nav .lang-switch .lang-switch-knob {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: var(--thumb-w);
+    height: calc(100% - 4px);
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    box-shadow: none;
+    transition: transform 0.22s ease, width 0.22s ease;
+    transform: translateX(var(--thumb-x));
+    z-index: 3;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+  }
+
+  #site-nav .lang-switch .lang-switch-knob:focus {
+    outline: none;
+  }
+
+  #site-nav .lang-switch a.lang-option {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin: 0;
+    min-width: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: inherit;
+    background: transparent;
+    transition: color 0.18s ease;
+  }
+
+  #site-nav .lang-flag-icon {
+    height: 0.8em;
+    width: auto;
+    max-width: none;
+    display: block;
+    flex: 0 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 2px;
+  }
+
+  #site-nav .lang-switch a.lang-option:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  #site-nav .lang-switch a.lang-option.is-active {
+    background: transparent;
+  }
+
+  @media (max-width: 37.5em) {
+    #site-nav .lang-switch-wrap {
+      margin-left: 0.25rem;
+      gap: 0.25rem;
+      max-width: 100%;
+    }
+
+    #site-nav .lang-switch-label {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    #site-nav .lang-switch a.lang-option {
+      gap: 0.25rem;
+      padding: 0.2rem 0.36rem;
+      font-size: 0.74rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const nav = document.querySelector("#site-nav");
+    if (!nav || nav.querySelector(".lang-switch-wrap")) return;
+
+    const jaLink =
+      nav.querySelector('.visible-links a[href="/ja/"], .visible-links a[href^="/ja/"]') ||
+      nav.querySelector('a[href="/ja/"], a[href^="/ja/"]');
+
+    const enLink =
+      nav.querySelector('.visible-links a[href="/en/"], .visible-links a[href^="/en/"]') ||
+      nav.querySelector('a[href="/en/"], a[href^="/en/"]');
+
+    if (!jaLink || !enLink) return;
+
+    const path = window.location.pathname;
+    const isEn = path === "/en" || path.startsWith("/en/");
+    const labelText = "言語 / Language";
+
+    const wrap = document.createElement("div");
+    wrap.className = "lang-switch-wrap";
+
+    const label = document.createElement("span");
+    label.className = "lang-switch-label";
+    label.textContent = labelText;
+
+    const switchBox = document.createElement("div");
+    switchBox.className = "lang-switch";
+
+    const thumbBg = document.createElement("span");
+    thumbBg.className = "lang-switch-thumb-bg";
+    switchBox.appendChild(thumbBg);
+
+    const knob = document.createElement("button");
+    knob.type = "button";
+    knob.className = "lang-switch-knob";
+
+    const jaClone = jaLink.cloneNode(true);
+    jaClone.classList.add("lang-option");
+    if (!isEn) jaClone.classList.add("is-active");
+
+    const enClone = enLink.cloneNode(true);
+    enClone.classList.add("lang-option");
+    if (isEn) enClone.classList.add("is-active");
+
+    switchBox.appendChild(jaClone);
+    switchBox.appendChild(enClone);
+    switchBox.appendChild(knob);
+    wrap.appendChild(label);
+    wrap.appendChild(switchBox);
+
+    // ナビ右側に表示
+    nav.appendChild(wrap);
+
+    const updateThumb = (targetLink) => {
+      const switchRect = switchBox.getBoundingClientRect();
+      const targetRect = targetLink.getBoundingClientRect();
+      const left = targetRect.left - switchRect.left - switchBox.clientLeft;
+      switchBox.style.setProperty("--thumb-w", targetRect.width + "px");
+      switchBox.style.setProperty("--thumb-x", left + "px");
+    };
+
+    const getActiveLink = () =>
+      switchBox.querySelector("a.lang-option.is-active") || (isEn ? enClone : jaClone);
+
+    const updateKnobLabel = () => {
+      const activeLink = getActiveLink();
+      const nextLang = activeLink === jaClone ? "English" : "日本語";
+      knob.setAttribute("aria-label", "Switch to " + nextLang);
+    };
+
+    const syncThumb = () => {
+      const activeLink = getActiveLink();
+      if (activeLink) {
+        updateThumb(activeLink);
+        updateKnobLabel();
+      }
+    };
+
+    const navigateWithSwitch = (targetLink) => {
+      const url = targetLink.getAttribute("href");
+      if (!url) return;
+      jaClone.classList.toggle("is-active", targetLink === jaClone);
+      enClone.classList.toggle("is-active", targetLink === enClone);
+      syncThumb();
+      window.setTimeout(() => {
+        window.location.href = url;
+      }, 180);
+    };
+
+    const getThumbX = () => {
+      const value = getComputedStyle(switchBox).getPropertyValue("--thumb-x").trim();
+      return Number.parseFloat(value) || 0;
+    };
+
+    const getDragRange = () => {
+      const switchRect = switchBox.getBoundingClientRect();
+      const jaRect = jaClone.getBoundingClientRect();
+      const enRect = enClone.getBoundingClientRect();
+      const minX = jaRect.left - switchRect.left - switchBox.clientLeft;
+      const maxX = enRect.left - switchRect.left - switchBox.clientLeft;
+      return { minX, maxX };
+    };
+
+    let isDraggingKnob = false;
+    let dragStartX = 0;
+    let dragStartThumbX = 0;
+    let dragMoved = false;
+
+    const onKnobPointerMove = (event) => {
+      if (!isDraggingKnob) return;
+      const dx = event.clientX - dragStartX;
+      if (Math.abs(dx) > 1) dragMoved = true;
+      const { minX, maxX } = getDragRange();
+      const nextX = Math.min(Math.max(dragStartThumbX + dx * 1.5, minX), maxX);
+      switchBox.style.setProperty("--thumb-x", nextX + "px");
+    };
+
+    const onKnobPointerUp = (event) => {
+      if (!isDraggingKnob) return;
+      isDraggingKnob = false;
+      knob.releasePointerCapture(event.pointerId);
+
+      const { minX, maxX } = getDragRange();
+      const currentX = getThumbX();
+      const threshold = minX + (maxX - minX) * 0.35;
+
+      if (dragMoved) {
+        const targetLink = currentX >= threshold ? enClone : jaClone;
+        navigateWithSwitch(targetLink);
+        return;
+      }
+
+      const activeLink = getActiveLink();
+      const targetLink = activeLink === jaClone ? enClone : jaClone;
+      navigateWithSwitch(targetLink);
+    };
+
+    requestAnimationFrame(() => {
+      syncThumb();
+      requestAnimationFrame(syncThumb);
+      window.setTimeout(syncThumb, 80);
+      window.setTimeout(syncThumb, 220);
+    });
+
+    window.addEventListener("load", syncThumb);
+
+    window.addEventListener("resize", syncThumb);
+
+    switchBox.querySelectorAll("img.lang-flag-icon").forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", syncThumb, { once: true });
+      }
+    });
+
+    [jaClone, enClone].forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        navigateWithSwitch(link);
+      });
+    });
+
+    knob.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      isDraggingKnob = true;
+      dragMoved = false;
+      dragStartX = event.clientX;
+      dragStartThumbX = getThumbX();
+      knob.setPointerCapture(event.pointerId);
+    });
+
+    knob.addEventListener("pointermove", onKnobPointerMove);
+    knob.addEventListener("pointerup", onKnobPointerUp);
+    knob.addEventListener("pointercancel", () => {
+      if (!isDraggingKnob) return;
+      isDraggingKnob = false;
+      syncThumb();
+    });
+
+    // 元リンク（一覧側）は非表示
+    [jaLink, enLink].forEach((a) => {
+      const li = a.closest("li");
+      if (li) li.style.display = "none";
+      else a.style.display = "none";
+    });
+  });
+</script>

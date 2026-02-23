@@ -3,10 +3,11 @@ layout: single
 title: "ホーム"
 permalink: /ja/
 lang: ja
+sidebar:
+  nav: "nav_ja"
 ---
 
-Kento Miyazawa のポートフォリオへようこそ。
+ご覧いただきありがとうございます。
 
-- [CVをダウンロード](/ja/cv/)
+- [履歴書をダウンロード](/ja/cv/)
 - [ブログを見る](/ja/blog/)
-- [English](/en/)
