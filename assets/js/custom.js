@@ -40,4 +40,37 @@ document.addEventListener("DOMContentLoaded", function () {
     pageTitle.parentNode.insertBefore(backTopWrap, pageTitle);
     backTopWrap.appendChild(backButton);
   }
+
+  if (document.body && document.body.classList.contains("cv-page")) {
+    var toc = document.querySelector(".sidebar__right .toc");
+    var tocTitle = toc ? toc.querySelector(".nav__title") : null;
+    var tocMenu = toc ? toc.querySelector(".toc__menu") : null;
+
+    if (toc && tocTitle && tocMenu && !toc.classList.contains("cv-toc-ready")) {
+      var menuId = tocMenu.id || "cv-toc-menu";
+      tocMenu.id = menuId;
+
+      toc.classList.add("cv-toc-ready");
+      toc.classList.add("is-collapsed");
+
+      tocTitle.classList.add("cv-toc-trigger");
+      tocTitle.setAttribute("role", "button");
+      tocTitle.setAttribute("tabindex", "0");
+      tocTitle.setAttribute("aria-controls", menuId);
+      tocTitle.setAttribute("aria-expanded", "false");
+
+      var toggleToc = function () {
+        var isCollapsed = toc.classList.toggle("is-collapsed");
+        tocTitle.setAttribute("aria-expanded", isCollapsed ? "false" : "true");
+      };
+
+      tocTitle.addEventListener("click", toggleToc);
+      tocTitle.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleToc();
+        }
+      });
+    }
+  }
 });

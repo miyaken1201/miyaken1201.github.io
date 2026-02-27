@@ -3,6 +3,7 @@ layout: single
 title: "CV"
 permalink: /en/cv/
 lang: en
+classes: cv-page
 sidebar:
   nav: "nav_en"
 toc: true
@@ -23,9 +24,9 @@ toc_sticky: true
 
 **Name:** Kento Miyazawa
 
-**Affiliation:** Graduate School of Science and Engineering, Chiba University
+**Affiliation:** Graduate School of Science and Engineering, Chiba University, Department of Earth Science, Remote Sensing Course
 
-**Mobile:** 070-5564-4637
+**Tel:** 070-5564-4637
 
 **Email:** 25wm1211@student.gs.chiba-u.jp
 

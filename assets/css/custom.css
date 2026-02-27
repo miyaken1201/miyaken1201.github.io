@@ -2,12 +2,8 @@
   --content-max-width: 1600px; /* ここを大きくする */
 }
 
-/* あらゆる主要なコンテナの制限を解除 */
+/* 本文サイズ調整 */
 .page {
-  max-width: var(--content-max-width) !important;
-  width: 80% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
   font-size: large;
 }
 
@@ -16,11 +12,14 @@
     width: calc(160px - 1em) !important;
   }
 
-  #main .sidebar ~ .page {
+  .page {
     width: calc(100% - 160px) !important;
+    max-width: var(--content-max-width) !important;
     padding-inline-end: 160px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    box-sizing: border-box !important;
+    min-width: 0;
   }
 }
 
@@ -29,10 +28,48 @@
     width: calc(240px - 1em) !important;
   }
 
-  #main .sidebar ~ .page {
+  .page {
     width: calc(100% - 240px) !important;
     padding-inline-end: 240px !important;
+    box-sizing: border-box !important;
+    min-width: 0;
   }
+}
+
+@media (min-width: 64em) {
+  .cv-page .sidebar__right {
+    position: static !important;
+    float: none !important;
+    width: auto !important;
+    margin-inline-end: 0 !important;
+    padding-inline-start: 0 !important;
+  }
+}
+
+.cv-page .page__content {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.cv-page .toc header {
+  display: block;
+}
+
+.cv-page .toc .nav__title.cv-toc-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cv-page .toc .nav__title.cv-toc-trigger:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.cv-page .toc.is-collapsed .toc__menu {
+  display: none;
 }
 
 .cv-timeline-edu {
@@ -156,6 +193,50 @@
   border-radius: 999px;
   background-color: #e2e4e5;
   font-size: 0.9em;
+}
+
+.blog-list-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.blog-filter-hidden {
+  display: none !important;
+}
+
+.blog-post-data {
+  display: none;
+}
+
+.blog-pagination {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.blog-list-item {
+  margin-bottom: 1rem;
+}
+
+.blog-list-title {
+  margin-bottom: 0.25rem;
+}
+
+.blog-list-meta {
+  margin: 0 0 0.25rem 0;
+}
+
+.blog-list-tags {
+  margin: 0;
+}
+
+.blog-list-empty {
+  margin: 0;
 }
 
 @media (max-width: 47.99em) {
