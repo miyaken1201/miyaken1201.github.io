@@ -3,6 +3,7 @@ layout: single
 title: "履歴書"
 permalink: /ja/cv/
 lang: ja
+classes: cv-page
 sidebar:
   nav: "nav_ja"
 toc: true
@@ -23,7 +24,7 @@ toc_sticky: true
 
 **氏名:** <ruby>宮澤<rt>ミヤザワ</rt></ruby>　<ruby>健人<rt>ケント</rt></ruby>
 
-**所属:** 千葉大学大学院　融合理工学府
+**所属:** 千葉大学大学院　融合理工学府　地球環境科学専攻　リモートセンシングコース
 
 **携帯電話:** 070-5564-4637
 
