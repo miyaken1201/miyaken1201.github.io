@@ -1,0 +1,20 @@
+{% comment %} YouTube動画の埋め込み (16:9 レスポンシブ対応) 使用例: {% include
+youtube.html id="dQw4w9WgXcQ" %} id: YouTube動画URLの ?v= 以降の文字列 {%
+endcomment %}
+<div class="embed-responsive embed-responsive--16by9">
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/{{ include.id }}"
+    title="{{ include.title | default: 'YouTube video' }}"
+    loading="lazy"
+    allow="
+      accelerometer;
+      autoplay;
+      clipboard-write;
+      encrypted-media;
+      gyroscope;
+      picture-in-picture;
+      web-share;
+    "
+    allowfullscreen
+  ></iframe>
+</div>

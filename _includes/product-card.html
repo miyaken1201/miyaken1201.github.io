@@ -1,0 +1,53 @@
+{% comment %} ECサイト商品カードの埋め込み 使用例: {% include product-card.html
+url="https://www.amazon.co.jp/dp/XXXXXXXXXX" title="商品名"
+image="https://example.com/image.jpg" price="¥3,980" store="amazon"
+description="短い説明文（任意）" %} パラメータ: url (必須) 商品ページのURL title
+(必須) 商品名 image (任意) 商品画像のURL。省略時はプレースホルダー表示 price
+(任意) 価格文字列 例: "¥3,980" store (任意) "amazon" / "rakuten" /
+それ以外の任意文字列 description (任意) 短い説明文 (最大2行で切り捨て表示) {%
+endcomment %} {% assign _store = include.store | downcase %} {% if _store ==
+"amazon" %} {% assign _badge_class = "amazon" %} {% assign _badge_text =
+"Amazon" %} {% elsif _store == "rakuten" %} {% assign _badge_class = "rakuten"
+%} {% assign _badge_text = "楽天市場" %} {% elsif include.store and
+include.store != "" %} {% assign _badge_class = "other" %} {% assign _badge_text
+= include.store %} {% endif %}
+
+<div class="product-card">
+  {% if include.image and include.image != "" %}
+  <div class="product-card__image">
+    <a
+      href="{{ include.url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <img src="{{ include.image }}" alt="{{ include.title }}" loading="lazy" />
+    </a>
+  </div>
+  {% endif %}
+  <div class="product-card__body">
+    {% if _badge_class %}
+    <span class="product-card__badge product-card__badge--{{ _badge_class }}"
+      >{{ _badge_text }}</span
+    >
+    {% endif %}
+    <p class="product-card__title">
+      <a href="{{ include.url }}" target="_blank" rel="noopener noreferrer"
+        >{{ include.title }}</a
+      >
+    </p>
+    {% if include.description and include.description != "" %}
+    <p class="product-card__description">{{ include.description }}</p>
+    {% endif %} {% if include.price and include.price != "" %}
+    <p class="product-card__price">{{ include.price }}</p>
+    {% endif %}
+    <a
+      class="product-card__btn btn btn--primary btn--small"
+      href="{{ include.url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      >商品を見る →</a
+    >
+  </div>
+</div>

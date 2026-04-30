@@ -1,0 +1,42 @@
+{% comment %} X (Twitter) ツイートの埋め込み (OSダークモード自動追従) 使用例: {%
+include tweet.html id="1234567890123456789" %} id: ツイートURLの末尾の数字 theme
+(任意): "dark" または "light" で個別上書き可。省略時はOS設定に自動追従。 {%
+endcomment %}
+<div class="tweet-embed">
+  <blockquote
+    class="twitter-tweet"
+    data-dnt="true"
+    {%
+    if
+    include.theme
+    %}
+    data-theme="{{ include.theme }}"
+    {%
+    endif
+    %}
+  >
+    <a href="https://twitter.com/x/status/{{ include.id }}"></a>
+  </blockquote>
+</div>
+{% unless include.theme %}
+<script>
+  (function () {
+    var bq =
+      document.currentScript.previousElementSibling.querySelector(
+        ".twitter-tweet",
+      );
+    if (
+      bq &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      bq.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+{% endunless %}
+<script
+  async
+  src="https://platform.twitter.com/widgets.js"
+  charset="utf-8"
+></script>
