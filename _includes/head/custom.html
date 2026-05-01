@@ -14,6 +14,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 1;
+    min-width: 0;
   }
 
   /* 「言語 / Language」見出し */
@@ -51,7 +53,9 @@
     border-radius: 999px;
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
-    transition: transform 0.22s ease, width 0.22s ease;
+    transition:
+      transform 0.22s ease,
+      width 0.22s ease;
     transform: translateX(var(--thumb-x));
     z-index: 1;
     pointer-events: none;
@@ -68,7 +72,9 @@
     border-radius: 999px;
     background: transparent;
     box-shadow: none;
-    transition: transform 0.22s ease, width 0.22s ease;
+    transition:
+      transform 0.22s ease,
+      width 0.22s ease;
     transform: translateX(var(--thumb-x));
     z-index: 3;
     cursor: pointer;
@@ -117,6 +123,23 @@
     background: transparent;
   }
 
+  @media (max-width: 63.9em) {
+    #site-nav .lang-switch-wrap {
+      margin-left: 0.4rem;
+      gap: 0.3rem;
+    }
+
+    #site-nav .lang-switch-label {
+      display: none;
+    }
+
+    #site-nav .lang-switch a.lang-option {
+      gap: 0.25rem;
+      padding: 0.2rem 0.4rem;
+      font-size: 0.78rem;
+    }
+  }
+
   @media (max-width: 37.5em) {
     #site-nav .lang-switch-wrap {
       margin-left: 0.25rem;
@@ -145,12 +168,14 @@
     if (!nav || nav.querySelector(".lang-switch-wrap")) return;
 
     const jaLink =
-      nav.querySelector('.visible-links a[href="/ja/"], .visible-links a[href^="/ja/"]') ||
-      nav.querySelector('a[href="/ja/"], a[href^="/ja/"]');
+      nav.querySelector(
+        '.visible-links a[href="/ja/"], .visible-links a[href^="/ja/"]',
+      ) || nav.querySelector('a[href="/ja/"], a[href^="/ja/"]');
 
     const enLink =
-      nav.querySelector('.visible-links a[href="/en/"], .visible-links a[href^="/en/"]') ||
-      nav.querySelector('a[href="/en/"], a[href^="/en/"]');
+      nav.querySelector(
+        '.visible-links a[href="/en/"], .visible-links a[href^="/en/"]',
+      ) || nav.querySelector('a[href="/en/"], a[href^="/en/"]');
 
     if (!jaLink || !enLink) return;
 
@@ -202,7 +227,8 @@
     };
 
     const getActiveLink = () =>
-      switchBox.querySelector("a.lang-option.is-active") || (isEn ? enClone : jaClone);
+      switchBox.querySelector("a.lang-option.is-active") ||
+      (isEn ? enClone : jaClone);
 
     const updateKnobLabel = () => {
       const activeLink = getActiveLink();
@@ -230,7 +256,9 @@
     };
 
     const getThumbX = () => {
-      const value = getComputedStyle(switchBox).getPropertyValue("--thumb-x").trim();
+      const value = getComputedStyle(switchBox)
+        .getPropertyValue("--thumb-x")
+        .trim();
       return Number.parseFloat(value) || 0;
     };
 
