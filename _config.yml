@@ -17,6 +17,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+google-site-verification: "jRsjAn3Cruj410w1w5-erBk066riUFqU-MTpsRQz08g"
+
 markdown: kramdown
 permalink: /:categories/:title/
 post_pagination: true
