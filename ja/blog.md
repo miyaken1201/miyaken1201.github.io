@@ -5,6 +5,7 @@ permalink: /ja/blog/
 lang: ja
 sidebar:
   nav: "nav_ja"
+author_profile: true
 ---
 
 日本語記事一覧
