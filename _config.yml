@@ -6,8 +6,17 @@ locale: ja
 timezone: Asia/Tokyo
 
 author:
-  name: "Kento Miyazawa"
-  github: "miyaken1201"
+  name    : "Kento Miyazawa"
+  avatar  : "/assets/img/avatars/aile-strike-gundam.jpg"   # プロフィール画像のパス
+  bio     : "2nd-year Master's student at Chiba Univ."
+  location: "Chiba, Japan"
+  links:
+    - label: "GitHub"
+      icon : "fab fa-fw fa-github"
+      url  : "https://github.com/miyaken1201"
+    - label: "Email"
+      icon : "fas fa-fw fa-square-envelope"
+      url  : "mailto:25wm1211@student.gs.chiba-u.jp"
 
 remote_theme: mmistakes/minimal-mistakes
 
@@ -29,7 +38,7 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: false
+      author_profile: true
       read_time: true
       share: false
       related: false

@@ -6,13 +6,7 @@ permalink: /ja/
 lang: ja
 sidebar:
   nav: "nav_ja"
-author:
-  name: "Kento Miyazawa"
-  github: "miyaken1201"
-  twitter: "miyaken1201"  # @なし
-  links:
-    - label: "GitHub"
-      url: "https://github.com/miyaken1201"
+author_profile: true
 ---
 
 ご覧いただきありがとうございます。

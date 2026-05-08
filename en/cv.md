@@ -10,6 +10,7 @@ toc: true
 toc_label: "Table of Contents"
 toc_icon: "align-left"
 toc_sticky: true
+author_profile: true
 ---
 
 <div class="pdf-hide">

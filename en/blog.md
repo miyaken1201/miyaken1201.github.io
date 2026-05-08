@@ -5,6 +5,7 @@ permalink: /en/blog/
 lang: en
 sidebar:
   nav: "nav_en"
+author_profile: true
 ---
 
 English posts
