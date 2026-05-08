@@ -444,12 +444,13 @@
   }
 }
 
-/* Custom author sidebar icon: Qiita */
+/* Custom author sidebar icon: Qiita — fa-fw と幅・配置を合わせる */
 img.icon-qiita {
   display: inline-block;
-  width: 1em;
+  width: 1.25em; /* .fa-fw と同じ固定幅 */
   height: 1em;
   vertical-align: -0.15em;
   object-fit: contain;
+  text-align: center; /* fa-fw と同じ中央揃え */
   border: none;
 }
