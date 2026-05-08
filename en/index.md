@@ -6,7 +6,6 @@ permalink: /en/
 lang: en
 sidebar:
   nav: "nav_en"
-author_profile: true
 ---
 
 Welcome to Kento Miyazawa's portfolio.

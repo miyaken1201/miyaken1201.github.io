@@ -10,7 +10,6 @@ toc: true
 toc_label: "目次"
 toc_icon: "align-left"
 toc_sticky: true
-author_profile: true
 ---
 
 <div class="pdf-hide">
