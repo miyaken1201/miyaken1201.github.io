@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "ホーム"
-description: "みやけんのポートフォリオサイト。履歴書・ブログを日本語と英語で公開しています。"
+description: "宮澤健人のポートフォリオサイト。履歴書・ブログを日本語と英語で公開しています。"
 permalink: /ja/
 lang: ja
 sidebar:

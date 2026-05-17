@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: Kento Miyazawa
+title: 宮澤健人 Kento Miyazawa
 description: "Kento Miyazawa's portfolio, CV, and blog in Japanese and English."
 permalink: /
 ---
